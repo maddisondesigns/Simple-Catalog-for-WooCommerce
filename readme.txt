@@ -1,7 +1,7 @@
 === Simple Catalog for WooCommerce ===
 Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
-Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce
+Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.5
 Tested up to: 4.5.3
 Stable tag: 1.0
