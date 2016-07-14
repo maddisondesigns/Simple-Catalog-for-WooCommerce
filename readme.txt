@@ -3,8 +3,8 @@ Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.5
-Tested up to: 4.5.3
-Stable tag: 1.0
+Tested up to: 4.6
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,9 +18,15 @@ WooCommerce is a fantastic eCommerce plugin, but sometimes you might only want t
 
 Later on, when you decide you're ready to sell your products online, simply disable this plugin and all your WooCommerce functionality will return.
 
-Using this plugin you're able to restrict the eCommerce functionality to all your customers, or just to customers who haven't logged in.
+Simple Catalog for WooCommerce allows you to:
+	- Hide the Add to Cart button
+	- Hide the Product Price and optionally display a message to your customers instead
+	- Hide the Product Ratings
+	- Hide the Product Reviews tab
+	- Hide the Cart page
+	- Hide the Checkout page
 
-When hiding your prices, product ratings and Add to Cart buttons, you're able to hide them completely or just hide them from users who haven't logged in. You also have the option of showing a message to your customers in place of your price.
+You're able to hide the above WooCommerce features from all users or just hide them from users who haven't logged in.
 
 For use with WooCommerce 2.6 and above.
 
@@ -52,6 +58,9 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 
 
 == Changelog ==
+
+= 1.1 =
+- Added ability to hide the Product Reviews tab
 
 = 1.0 =
 - Initial version. Yay!

@@ -3,7 +3,7 @@
 Plugin Name: Simple Catalog for WooCommerce
 Plugin URI: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Description: Turn your WooCommerce store into a simple online catalog. You can disable your eCommerce functionality for all users or only for users that aren't logged in.
-Version: 1.0
+Version: 1.1
 Author: Anthony Hortin
 Author URI: http://maddisondesigns.com
 Text Domain: simple-woocommerce-catalog
@@ -40,6 +40,7 @@ class scw_simple_catalog_woocommerce_plugin {
 			add_action( 'init', array( $this, 'scw_catalog_remove_cart_buttons' ) );
 			add_action( 'init', array( $this, 'scw_catalog_remove_prices' ) );
 			add_action( 'init', array( $this, 'scw_catalog_remove_ratings' ) );
+			add_action( 'init', array( $this, 'scw_catalog_remove_reviews' ) );
 			add_action('template_redirect', array( $this, 'scw_catalog_cart_redirect') );
 			add_action('template_redirect', array( $this, 'scw_catalog_checkout_redirect') );
 		}
@@ -139,6 +140,18 @@ class scw_simple_catalog_woocommerce_plugin {
 					'loggedin' => 'Display for Logged In Users'
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showratings'
+			),
+			'showreviews' => array(
+				'name' => __( 'Product Reviews', 'simple-woocommerce-catalog' ),
+				'desc_tip' => __( 'Hide the product reviews for all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'type' => 'select',
+				'default' => 'loggedin',
+				'options' => array(
+					'display' => 'Display for all Users',
+					'hide' => 'Hide for all Users',
+					'loggedin' => 'Display for Logged In Users'
+				),
+				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showreviews'
 			),
 			'pricetext' => array(
 				'name' => __( 'Price Text Replacement', 'simple-woocommerce-catalog' ),
@@ -263,6 +276,38 @@ class scw_simple_catalog_woocommerce_plugin {
 	public function scw_hide_product_ratings() {
 		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+	}
+
+	/**
+	 * Check what we should do with the product review
+	 */
+	public function scw_catalog_remove_reviews() {
+		switch ( $this->scw_catalog_get_option( 'showreviews' ) ) {
+			case 'hide':
+				$this->scw_hide_product_reviews();
+				break;
+
+			case 'loggedin':
+				if ( !is_user_logged_in() ) {
+					$this->scw_hide_product_reviews();
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Hide the product review on the single product page.
+	 */
+	public function scw_hide_product_reviews() {
+		add_filter( 'woocommerce_product_tabs', array( $this, 'scw_catalog_woo_remove_reviews_tab' ), 98 );
+	}
+
+	/**
+	 * Remove the product reviews tab
+	 */
+	public function scw_catalog_woo_remove_reviews_tab( $tabs ) {
+		unset( $tabs['reviews'] );
+		return $tabs;
 	}
 
 	/**
