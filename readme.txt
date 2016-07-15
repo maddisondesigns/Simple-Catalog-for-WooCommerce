@@ -19,12 +19,18 @@ WooCommerce is a fantastic eCommerce plugin, but sometimes you might only want t
 Later on, when you decide you're ready to sell your products online, simply disable this plugin and all your WooCommerce functionality will return.
 
 Simple Catalog for WooCommerce allows you to:
-	- Hide the Add to Cart button
-	- Hide the Product Price and optionally display a message to your customers instead
-	- Hide the Product Ratings
-	- Hide the Product Reviews tab
-	- Hide the Cart page
-	- Hide the Checkout page
+
+- Hide the Add to Cart button
+
+- Hide the Product Price and optionally display a message to your customers instead
+
+- Hide the Product Ratings
+
+- Hide the Product Reviews tab
+
+- Hide the Cart page
+
+- Hide the Checkout page
 
 You're able to hide the above WooCommerce features from all users or just hide them from users who haven't logged in.
 
