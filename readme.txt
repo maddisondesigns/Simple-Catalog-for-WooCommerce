@@ -53,7 +53,7 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 2. Product Price hidden on Shop page and optional text displayed
 3. Product Price hidden on Single Product page and optional text displayed
 4. Product Price & Ratings hidden on Shop page
-5. Product Price & Ratings hidden on Single Product page
+5. Product Price, Ratings & Reviews hidden on Single Product page
 6. Simple Catalog for WooCommerce settings
 
 
