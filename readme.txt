@@ -4,7 +4,7 @@ Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.5
 Tested up to: 4.8
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,9 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 
 
 == Changelog ==
+
+= 1.2 =
+- Updated version number as the .org directory doesn't currently update the Last Updated date by simply updating the Tested up to value
 
 = 1.1 =
 - Added ability to hide the Product Reviews tab
