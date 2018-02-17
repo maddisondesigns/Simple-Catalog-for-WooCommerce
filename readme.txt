@@ -3,8 +3,8 @@ Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.5
-Tested up to: 4.8
-Stable tag: 1.2
+Tested up to: 4.9
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,9 @@ Simple Catalog for WooCommerce allows you to:
 
 - Hide the Add to Cart button
 
-- Hide the Product Price and optionally display a message to your customers instead
+- Hide the Product Price
+
+- Display a message to your customers when hiding the Product Price along with adding a link to one of your pages
 
 - Hide the Product Ratings
 
@@ -64,6 +66,13 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 
 
 == Changelog ==
+
+= 1.4 =
+- Updated hook calls so that variation dropdowns still display on Variable products
+- Added ability for Price Text Replacement text to link to a page
+
+= 1.3 =
+- Added WC Tested tags to plugin header for compatibility check
 
 = 1.2 =
 - Updated version number as the .org directory doesn't currently update the Last Updated date by simply updating the Tested up to value
