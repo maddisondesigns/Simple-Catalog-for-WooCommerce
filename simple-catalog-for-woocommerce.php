@@ -3,7 +3,9 @@
 Plugin Name: Simple Catalog for WooCommerce
 Plugin URI: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Description: Turn your WooCommerce store into a simple online catalog. You can disable your eCommerce functionality for all users or only for users that aren't logged in.
-Version: 1.2
+Version: 1.4
+WC requires at least: 2.6
+WC tested up to: 3.3
 Author: Anthony Hortin
 Author URI: http://maddisondesigns.com
 Text Domain: simple-woocommerce-catalog
@@ -37,10 +39,11 @@ class scw_simple_catalog_woocommerce_plugin {
 			add_filter( 'plugin_action_links', array( $this, 'scw_add_settings_link'), 10, 2);
 		}
 		else {
-			add_action( 'init', array( $this, 'scw_catalog_remove_cart_buttons' ) );
 			add_action( 'init', array( $this, 'scw_catalog_remove_prices' ) );
 			add_action( 'init', array( $this, 'scw_catalog_remove_ratings' ) );
 			add_action( 'init', array( $this, 'scw_catalog_remove_reviews' ) );
+			add_action( 'init', array( $this, 'scw_shop_remove_cart_buttons' ) );
+			add_action( 'woocommerce_single_product_summary', array( $this, 'scw_single_product_remove_cart_buttons' ) );
 			add_action('template_redirect', array( $this, 'scw_catalog_cart_redirect') );
 			add_action('template_redirect', array( $this, 'scw_catalog_checkout_redirect') );
 		}
@@ -99,6 +102,14 @@ class scw_simple_catalog_woocommerce_plugin {
 	 * Add all our settings to our WooCommerce tab
 	 */
 	private function scw_get_tab_settings() {
+		$list_of_pages = get_pages();
+		$pages_array = array();
+
+		$pages_array['none'] = 'Do not link Price Text Replacement';
+		foreach( $list_of_pages as $page ) {
+			$pages_array[esc_attr( $page->ID )] = esc_attr( $page->post_title );
+		}
+
 		$settings = array(
 			'section_title' => array(
 				'name'     => __( 'Catalog Options', 'simple-woocommerce-catalog' ),
@@ -160,6 +171,14 @@ class scw_simple_catalog_woocommerce_plugin {
 				'default' => '',
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_pricetext'
 			),
+			'pricetextlink' => array(
+				'name' => __( 'Price Text Link', 'simple-woocommerce-catalog' ),
+				'desc_tip' => __( 'Link to this page when displaying text instead of the price. Only displayed when price is hidden from customers and Price Text Replacement field is used.', 'simple-woocommerce-catalog' ),
+				'type' => 'select',
+				'default' => 'none',
+				'options' => $pages_array,
+				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_pricetextlink'
+			),
 			'hidecart' => array(
 				'name' => __( 'Cart Page', 'simple-woocommerce-catalog' ),
 				'desc_tip' => __( 'Hide the Cart page from all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
@@ -193,28 +212,62 @@ class scw_simple_catalog_woocommerce_plugin {
 	}
 
 	/**
-	 * Check what we should do with the Add to Cart button
+	 * Check what we should do with the Add to Cart button on the shop page
 	 */
-	public function scw_catalog_remove_cart_buttons() {
+	public function scw_shop_remove_cart_buttons() {
 		switch ( $this->scw_catalog_get_option( 'addtocart' ) ) {
 			case 'hide':
-				$this->scw_hide_cart_buttons();
+				$this->scw_shop_hide_cart_buttons();
 				break;
 
 			case 'loggedin':
 				if ( !is_user_logged_in() ) {
-					$this->scw_hide_cart_buttons();
+					$this->scw_shop_hide_cart_buttons();
 				}
 				break;
 		}
 	}
 
 	/**
-	 * Hide the Add to Cart button on the shop page and the single product page
+	 * Hide the Add to Cart button on the shop page
 	 */
-	public function scw_hide_cart_buttons() {
+	public function scw_shop_hide_cart_buttons() {
 		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+	}
+
+	/**
+	 * Check what we should do with the Add to Cart button on the single product page
+	 */
+	public function scw_single_product_remove_cart_buttons() {
+		switch ( $this->scw_catalog_get_option( 'addtocart' ) ) {
+			case 'hide':
+				$this->scw_single_product_hide_cart_buttons();
+				break;
+
+			case 'loggedin':
+				if ( !is_user_logged_in() ) {
+					$this->scw_single_product_hide_cart_buttons();
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Hide the Add to Cart button on the single product page
+	 */
+	public function scw_single_product_hide_cart_buttons() {
+		global $product;
+
+		if( $product->is_type('variable') ) {
+			// Remove price on Variation
+			remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10);
+
+			// Remove Add to Cart on Variation
+			remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
+		}
+		else {
+			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		}
 	}
 
 	/**
@@ -250,7 +303,22 @@ class scw_simple_catalog_woocommerce_plugin {
 	 * Change the price text when the prices are hidden from customers
 	 */
 	public function scw_catalog_price_text_replacement() {
-		echo '<p class="price">' . $this->scw_catalog_get_option( 'pricetext' ) . '</p>';
+		$price_str = "";
+		$price_str_link_id = $this->scw_catalog_get_option( 'pricetextlink' );
+
+		if ( empty( $price_str_link_id ) || $price_str_link_id === 'none' ) {
+			$price_str = sprintf( '<p class="price">%1$s</p>',
+				$this->scw_catalog_get_option( 'pricetext' )
+			);
+		}
+		else {
+			$price_str = sprintf( '<p class="price"><a href="%1$s">%2$s</a></p>',
+				get_page_link( $price_str_link_id ),
+				$this->scw_catalog_get_option( 'pricetext' )
+			);
+		}
+
+		echo $price_str;
 	}
 
 	/**
