@@ -3,8 +3,8 @@ Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.5
-Tested up to: 4.9
-Stable tag: 1.4
+Tested up to: 5.0.3
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 
 
 == Changelog ==
+
+= 1.4.1 =
+- Updated WC Tested tags
 
 = 1.4 =
 - Updated hook calls so that variation dropdowns still display on Variable products
