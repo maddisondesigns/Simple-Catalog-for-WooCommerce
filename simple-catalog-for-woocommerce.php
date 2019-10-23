@@ -3,12 +3,12 @@
 Plugin Name: Simple Catalog for WooCommerce
 Plugin URI: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Description: Turn your WooCommerce store into a simple online catalog. You can disable your eCommerce functionality for all users or only for users that aren't logged in.
-Version: 1.4.2
+Version: 1.4.3
 WC requires at least: 2.6
 WC tested up to: 3.7.1
 Author: Anthony Hortin
 Author URI: http://maddisondesigns.com
-Text Domain: simple-woocommerce-catalog
+Text Domain: simple-catalog-for-woocommerce
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,7 +53,7 @@ class scw_simple_catalog_woocommerce_plugin {
 	 * Add a new tab to the WooCommerce Settings page
 	 */
 	public static function scw_add_settings_tab( $settings_tabs ) {
-		$settings_tabs[self::SETTINGS_NAMESPACE] = __( 'Simple Catalog', 'simple-woocommerce-catalog' );
+		$settings_tabs[self::SETTINGS_NAMESPACE] = __( 'Simple Catalog', 'simple-catalog-for-woocommerce' );
 		return $settings_tabs;
 	}
 
@@ -68,7 +68,7 @@ class scw_simple_catalog_woocommerce_plugin {
 		}
 
 		if( $file == $this_plugin ) {
-			$settings_link = '<a href="admin.php?page=wc-settings&tab=' . self::SETTINGS_NAMESPACE . '">' . __( 'Settings', 'simple-woocommerce-catalog' ) . '</a>';
+			$settings_link = '<a href="admin.php?page=wc-settings&tab=' . self::SETTINGS_NAMESPACE . '">' . __( 'Settings', 'simple-catalog-for-woocommerce' ) . '</a>';
 			array_unshift( $links, $settings_link ) ;
 		}
 
@@ -104,24 +104,24 @@ class scw_simple_catalog_woocommerce_plugin {
 	private function scw_get_tab_settings() {
 		$list_of_pages = get_pages();
 		$pages_array = array();
-		$displayString = __( 'Display for all Users', 'simple-woocommerce-catalog' );
-		$hideString = __( 'Hide for all Users', 'simple-woocommerce-catalog' );
-		$loggedinString = __( 'Display for Logged In Users', 'simple-woocommerce-catalog' );
+		$displayString = __( 'Display for all Users', 'simple-catalog-for-woocommerce' );
+		$hideString = __( 'Hide for all Users', 'simple-catalog-for-woocommerce' );
+		$loggedinString = __( 'Display for Logged In Users', 'simple-catalog-for-woocommerce' );
 
-		$pages_array['none'] = __( 'Do not link Price Text Replacement', 'simple-woocommerce-catalog' );
+		$pages_array['none'] = __( 'Do not link Price Text Replacement', 'simple-catalog-for-woocommerce' );
 		foreach( $list_of_pages as $page ) {
 			$pages_array[esc_attr( $page->ID )] = esc_attr( $page->post_title );
 		}
 
 		$settings = array(
 			'section_title' => array(
-				'name'     => __( 'Catalog Options', 'simple-woocommerce-catalog' ),
+				'name'     => __( 'Catalog Options', 'simple-catalog-for-woocommerce' ),
 				'type'     => 'title',
 				'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_section_title'
 			),
 			'addtocart' => array(
-				'name' => __( 'Add to Cart Button', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the Add to Cart Button for all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Add to Cart Button', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the Add to Cart Button for all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
@@ -132,8 +132,8 @@ class scw_simple_catalog_woocommerce_plugin {
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_addtocart'
 			),
 			'showprices' => array(
-				'name' => __( 'Prices', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the prices for all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Prices', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the prices for all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
@@ -144,8 +144,8 @@ class scw_simple_catalog_woocommerce_plugin {
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showprices'
 			),
 			'showratings' => array(
-				'name' => __( 'Product Ratings', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the product ratings for all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Product Ratings', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the product ratings for all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
@@ -156,8 +156,8 @@ class scw_simple_catalog_woocommerce_plugin {
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showratings'
 			),
 			'showreviews' => array(
-				'name' => __( 'Product Reviews', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the product reviews for all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Product Reviews', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the product reviews for all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
@@ -168,23 +168,23 @@ class scw_simple_catalog_woocommerce_plugin {
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showreviews'
 			),
 			'pricetext' => array(
-				'name' => __( 'Price Text Replacement', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Display this text instead of the price. Only displayed when price is hidden from customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Price Text Replacement', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Display this text instead of the price. Only displayed when price is hidden from customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'text',
 				'default' => '',
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_pricetext'
 			),
 			'pricetextlink' => array(
-				'name' => __( 'Price Text Link', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Link to this page when displaying text instead of the price. Only displayed when price is hidden from customers and Price Text Replacement field is used.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Price Text Link', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Link to this page when displaying text instead of the price. Only displayed when price is hidden from customers and Price Text Replacement field is used.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'none',
 				'options' => $pages_array,
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_pricetextlink'
 			),
 			'hidecart' => array(
-				'name' => __( 'Cart Page', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the Cart page from all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Cart Page', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the Cart page from all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'display',
 				'options' => array(
@@ -195,8 +195,8 @@ class scw_simple_catalog_woocommerce_plugin {
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_hidecart'
 			),
 			'hidecheckout' => array(
-				'name' => __( 'Checkout Page', 'simple-woocommerce-catalog' ),
-				'desc_tip' => __( 'Hide the Checkout page from all customers or just Logged In customers.', 'simple-woocommerce-catalog' ),
+				'name' => __( 'Checkout Page', 'simple-catalog-for-woocommerce' ),
+				'desc_tip' => __( 'Hide the Checkout page from all customers or just Logged In customers.', 'simple-catalog-for-woocommerce' ),
 				'type' => 'select',
 				'default' => 'display',
 				'options' => array(

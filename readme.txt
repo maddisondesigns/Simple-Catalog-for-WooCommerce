@@ -2,9 +2,9 @@
 Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
-Requires at least: 4.5
+Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ That's easy! Simply deactivate this plugin and all your WooCommerce functionalit
 
 
 == Changelog ==
+
+= 1.4.3 =
+- Fixed Text Domain to match plugin slug so that translation Language Packs work correctly
 
 = 1.4.2 =
 - Added missing translations on dropdown option strings
