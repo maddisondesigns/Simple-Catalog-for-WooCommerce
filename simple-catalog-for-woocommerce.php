@@ -3,9 +3,9 @@
 Plugin Name: Simple Catalog for WooCommerce
 Plugin URI: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Description: Turn your WooCommerce store into a simple online catalog. You can disable your eCommerce functionality for all users or only for users that aren't logged in.
-Version: 1.4.1
+Version: 1.4.2
 WC requires at least: 2.6
-WC tested up to: 3.5.4
+WC tested up to: 3.7.1
 Author: Anthony Hortin
 Author URI: http://maddisondesigns.com
 Text Domain: simple-woocommerce-catalog
@@ -104,8 +104,11 @@ class scw_simple_catalog_woocommerce_plugin {
 	private function scw_get_tab_settings() {
 		$list_of_pages = get_pages();
 		$pages_array = array();
+		$displayString = __( 'Display for all Users', 'simple-woocommerce-catalog' );
+		$hideString = __( 'Hide for all Users', 'simple-woocommerce-catalog' );
+		$loggedinString = __( 'Display for Logged In Users', 'simple-woocommerce-catalog' );
 
-		$pages_array['none'] = 'Do not link Price Text Replacement';
+		$pages_array['none'] = __( 'Do not link Price Text Replacement', 'simple-woocommerce-catalog' );
 		foreach( $list_of_pages as $page ) {
 			$pages_array[esc_attr( $page->ID )] = esc_attr( $page->post_title );
 		}
@@ -122,9 +125,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_addtocart'
 			),
@@ -134,9 +137,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showprices'
 			),
@@ -146,9 +149,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showratings'
 			),
@@ -158,9 +161,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'loggedin',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_showreviews'
 			),
@@ -185,9 +188,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'display',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_hidecart'
 			),
@@ -197,9 +200,9 @@ class scw_simple_catalog_woocommerce_plugin {
 				'type' => 'select',
 				'default' => 'display',
 				'options' => array(
-					'display' => 'Display for all Users',
-					'hide' => 'Hide for all Users',
-					'loggedin' => 'Display for Logged In Users'
+					'display' => $displayString,
+					'hide' => $hideString,
+					'loggedin' => $loggedinString
 				),
 				'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_hidecheckout'
 			),
