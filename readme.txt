@@ -3,7 +3,8 @@ Contributors: ahortin
 Donate Link: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, woocommerce, catalog, catalogue
 Requires at least: 4.6
-Tested up to: 5.3
+Tested up to: 5.4.2
+Requires PHP: 5.6
 Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
