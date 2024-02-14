@@ -3,9 +3,9 @@
 Plugin Name: Simple Catalog for WooCommerce
 Plugin URI: http://maddisondesigns.com/simple-catalog-for-woocommerce
 Description: Turn your WooCommerce store into a simple online catalog. You can disable your eCommerce functionality for all users or only for users that aren't logged in.
-Version: 1.4.3
+Version: 1.5.0
 WC requires at least: 2.6
-WC tested up to: 7.4
+WC tested up to: 8.5
 Author: Anthony Hortin
 Author URI: http://maddisondesigns.com
 Text Domain: simple-catalog-for-woocommerce
@@ -447,3 +447,13 @@ function scw_is_woocommerce_active() {
 		return false;
 	}
 }
+
+/**
+ * Declare WooCommerce HPOS compatibility
+ */
+function scw_declare_hpos_compat() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+add_action( 'before_woocommerce_init', 'scw_declare_hpos_compat' );
